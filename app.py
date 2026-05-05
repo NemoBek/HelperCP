@@ -14,7 +14,7 @@ with st.sidebar:
      api_key = st.text_input("Введите Gemini API Key", type="password")
      st.info("Версия 0.4: Поддержка частичных отгрузок и всех форматов.")
 
- uploaded_files = st.file_uploader(
+uploaded_files = st.file_uploader(
      "Загрузите пакет документов (PO + Инвойс + др.)",
      type=["pdf", "jpg", "jpeg", "png", "xlsx", "docx"],
      accept_multiple_files=True
