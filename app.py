@@ -20,7 +20,7 @@ uploaded_files = st.file_uploader(
      accept_multiple_files=True
  )
 
- if st.button("🚀 Начать проверку", use_container_width=True):
+if st.button("🚀 Начать проверку", use_container_width=True):
      if not uploaded_files:
          st.error("Загрузите файлы.")
      elif not api_key:
