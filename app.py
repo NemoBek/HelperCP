@@ -25,7 +25,7 @@ if st.button("🚀 Начать проверку", use_container_width=True):
          st.error("Загрузите файлы.")
      elif not api_key:
             st.warning("Введите API ключ.")
-        else:
+     else:
             with st.spinner("ИИ проводит глубокий аудит документов..."):
                 try:
                     processor = DocProcessor(api_key=api_key)
