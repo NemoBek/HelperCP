@@ -32,7 +32,7 @@ if st.button("🚀 Начать проверку", use_container_width=True):
                     result_raw = processor.process_files(uploaded_files)
    
                     # Очистка и парсинг
-               clean_res = re.sub(r'```json\s*|\s*
+clean_res = re.sub(r'```json\s*|\s*
   `', '', result_raw).strip()
                   res = json.loads(clean_res, strict=False)
 
