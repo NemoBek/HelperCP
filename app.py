@@ -1,38 +1,38 @@
-    1 import streamlit as st
-    2 import pandas as pd
-    3 from processor import DocProcessor
-    4 import json
-    5 import re
-    6
-    7 st.set_page_config(page_title="AI Document Coordinator", page_icon="📋", layout="wide")
-    8
-    9 st.title("📋 Помощник координатора: Сверка документов")
-   10 st.markdown("ИИ анализирует любые файлы (PDF, Скэн, JPG, Excel, Word) и сверяет их с PO.")
-   11
-   12 with st.sidebar:
-   13     st.header("Настройки")
-   14     api_key = st.text_input("Введите Gemini API Key", type="password")
-   15     st.info("Версия 0.4: Поддержка частичных отгрузок и всех форматов.")
-   16
-   17 uploaded_files = st.file_uploader(
-   18     "Загрузите пакет документов (PO + Инвойс + др.)",
-   19     type=["pdf", "jpg", "jpeg", "png", "xlsx", "docx"],
-   20     accept_multiple_files=True
-   21 )
-   22
-   23 if st.button("🚀 Начать проверку", use_container_width=True):
-   24     if not uploaded_files:
-   25         st.error("Загрузите файлы.")
-   26     elif not api_key:
-   27         st.warning("Введите API ключ.")
-   28     else:
-   29         with st.spinner("ИИ проводит глубокий аудит документов..."):
-   30             try:
-   31                 processor = DocProcessor(api_key=api_key)
-   32                 result_raw = processor.process_files(uploaded_files)
-   33
-   34                 # Очистка и парсинг
-   35                 clean_res = re.sub(r'```json\s*|\s*
+import streamlit as st
+import pandas as pd
+from processor import DocProcessor
+import json
+import re
+
+st.set_page_config(page_title="AI Document Coordinator", page_icon="📋", layout="wide")
+
+st.title("📋 Помощник координатора: Сверка документов")
+st.markdown("ИИ анализирует любые файлы (PDF, Скэн, JPG, Excel, Word) и сверяет их с PO.")
+
+with st.sidebar:
+     st.header("Настройки")
+     api_key = st.text_input("Введите Gemini API Key", type="password")
+     st.info("Версия 0.4: Поддержка частичных отгрузок и всех форматов.")
+
+ uploaded_files = st.file_uploader(
+     "Загрузите пакет документов (PO + Инвойс + др.)",
+     type=["pdf", "jpg", "jpeg", "png", "xlsx", "docx"],
+     accept_multiple_files=True
+ )
+
+ if st.button("🚀 Начать проверку", use_container_width=True):
+     if not uploaded_files:
+         st.error("Загрузите файлы.")
+     elif not api_key:
+            st.warning("Введите API ключ.")
+        else:
+            with st.spinner("ИИ проводит глубокий аудит документов..."):
+                try:
+                    processor = DocProcessor(api_key=api_key)
+                    result_raw = processor.process_files(uploaded_files)
+   
+                    # Очистка и парсинг
+                    clean_res = re.sub(r'```json\s*|\s*
   `', '', result_raw).strip()
                   res = json.loads(clean_res, strict=False)
 
